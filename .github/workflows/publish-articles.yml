@@ -28,6 +28,10 @@ jobs:
         with:
           node-version: '20'
       
+      # 依存関係のインストール
+      - name: Install dependencies
+        run: npm install
+      
       # 記事を公開
       - name: Publish articles to Qiita
         run: npx qiita publish --all

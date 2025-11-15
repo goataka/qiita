@@ -1,0 +1,13 @@
+{
+  "name": "qiita",
+  "version": "1.0.0",
+  "description": "Qiita記事をGitHubで管理するためのリポジトリです。",
+  "private": true,
+  "scripts": {
+    "pull": "qiita pull",
+    "publish": "qiita publish --all"
+  },
+  "devDependencies": {
+    "@qiita/qiita-cli": "^1.0.0"
+  }
+}
