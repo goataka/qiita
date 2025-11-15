@@ -1,0 +1,44 @@
+name: 既存記事の取得
+
+# 手動実行のみ可能
+on:
+  workflow_dispatch:
+
+jobs:
+  fetch-articles:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      # リポジトリをチェックアウト
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      # Node.jsのセットアップ
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      # Qiita CLIのインストール
+      - name: Install Qiita CLI
+        run: npm install -g @qiita/qiita-cli
+      
+      # 既存記事を取得
+      - name: Pull articles from Qiita
+        run: npx qiita pull
+        env:
+          QIITA_TOKEN: ${{ secrets.QIITA_TOKEN }}
+      
+      # 変更があればコミット
+      - name: Commit changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .
+          git diff --staged --quiet || git commit -m "既存記事を取得"
+      
+      # 変更をプッシュ
+      - name: Push changes
+        run: git push
