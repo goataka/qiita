@@ -1,0 +1,39 @@
+name: 記事の公開
+
+# PRがmainブランチにマージされた時に実行
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+jobs:
+  publish-articles:
+    # PRがマージされた場合のみ実行
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      # リポジトリをチェックアウト
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      # Node.jsのセットアップ
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      # Qiita CLIのインストール
+      - name: Install Qiita CLI
+        run: npm install -g @qiita/qiita-cli
+      
+      # 記事を公開
+      - name: Publish articles to Qiita
+        run: npx qiita publish --all
+        env:
+          QIITA_TOKEN: ${{ secrets.QIITA_TOKEN }}
