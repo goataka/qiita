@@ -7,6 +7,8 @@ on:
 jobs:
   fetch-articles:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     
     steps:
       # リポジトリをチェックアウト
