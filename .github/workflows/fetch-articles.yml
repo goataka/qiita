@@ -1,0 +1,37 @@
+name: 既存記事の取得
+
+# 手動実行のみ可能
+on:
+  workflow_dispatch:
+
+jobs:
+  fetch-articles:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # リポジトリをチェックアウト
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      # Qiita CLIのセットアップ
+      - name: Setup Qiita CLI
+        uses: koki-develop/setup-qiita-cli@v1
+        with:
+          version: latest
+          access-token: ${{ secrets.QIITA_TOKEN }}
+      
+      # 既存記事を取得
+      - name: Pull articles from Qiita
+        run: npx qiita pull
+      
+      # 変更があればコミット
+      - name: Commit changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .
+          git diff --staged --quiet || git commit -m "既存記事を取得"
+      
+      # 変更をプッシュ
+      - name: Push changes
+        run: git push
