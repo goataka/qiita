@@ -24,8 +24,8 @@ jobs:
         uses: lycheeverse/lychee-action@v1
         with:
           # public/ディレクトリ内のMarkdownファイルをチェック
-          args: --verbose --no-progress --exclude-mail 'public/**/*.md'
-          # 壊れたリンクがあっても失敗としない（Issueで通知）
+          args: --verbose --no-progress 'public/**/*.md'
+          # 壊れたリンクが見つかった場合は失敗とする（Issueで通知）
           fail: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
