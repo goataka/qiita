@@ -25,15 +25,11 @@ jobs:
       - name: Install Qiita CLI
         run: npm install -g @qiita/qiita-cli
       
-      # Qiita CLIの認証設定
-      - name: Setup Qiita CLI credentials
-        run: |
-          mkdir -p ~/.config/qiita-cli
-          echo '{"token":"${{ secrets.QIITA_TOKEN }}"}' > ~/.config/qiita-cli/credentials.json
-      
       # 既存記事を取得
       - name: Pull articles from Qiita
         run: npx qiita pull
+        env:
+          QIITA_TOKEN: ${{ secrets.QIITA_TOKEN }}
       
       # 変更があればコミット
       - name: Commit changes
