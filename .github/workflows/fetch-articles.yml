@@ -23,7 +23,7 @@ jobs:
       
       # Qiita CLIのインストール
       - name: Install Qiita CLI
-        run: npm install -g @qiita/qiita-cli
+        run: npm install --save-dev @qiita/qiita-cli
       
       # 既存記事を取得
       - name: Pull articles from Qiita

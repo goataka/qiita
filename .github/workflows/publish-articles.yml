@@ -28,6 +28,10 @@ jobs:
         with:
           node-version: '20'
       
+      # Qiita CLIのインストール
+      - name: Install Qiita CLI
+        run: npm install --save-dev @qiita/qiita-cli
+      
       # 記事を公開
       - name: Publish articles to Qiita
         run: npx qiita publish --all
