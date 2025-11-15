@@ -15,12 +15,21 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       
-      # Qiita CLIのセットアップ
-      - name: Setup Qiita CLI
-        uses: koki-develop/setup-qiita-cli@v1
+      # Node.jsのセットアップ
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          version: latest
-          access-token: ${{ secrets.QIITA_TOKEN }}
+          node-version: '20'
+      
+      # Qiita CLIのインストール
+      - name: Install Qiita CLI
+        run: npm install -g @qiita/qiita-cli
+      
+      # Qiita CLIの認証設定
+      - name: Setup Qiita CLI credentials
+        run: |
+          mkdir -p ~/.config/qiita-cli
+          echo '{"token":"${{ secrets.QIITA_TOKEN }}"}' > ~/.config/qiita-cli/credentials.json
       
       # 既存記事を取得
       - name: Pull articles from Qiita
