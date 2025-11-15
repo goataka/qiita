@@ -21,9 +21,9 @@ jobs:
         with:
           node-version: '20'
       
-      # 依存関係のインストール
-      - name: Install dependencies
-        run: npm install
+      # Qiita CLIのインストール
+      - name: Install Qiita CLI
+        run: npm install @qiita/qiita-cli
       
       # 既存記事を取得
       - name: Pull articles from Qiita
