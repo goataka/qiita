@@ -1,0 +1,27 @@
+name: reviewdog
+
+# PRが作成・更新された時に実行
+on:
+  pull_request:
+
+jobs:
+  markdownlint:
+    name: Markdown Lint
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    
+    steps:
+      # リポジトリをチェックアウト
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      # reviewdogを使用してmarkdownlintを実行
+      - name: Run markdownlint with reviewdog
+        uses: reviewdog/action-markdownlint@v0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-review
+          level: warning
+          markdownlint_flags: '**/*.md --ignore node_modules'
