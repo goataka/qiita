@@ -1,3 +1,4 @@
 # Qiita CLI
 .qiita-cli
+.remote
 node_modules
