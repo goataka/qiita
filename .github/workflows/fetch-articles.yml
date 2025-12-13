@@ -31,6 +31,10 @@ jobs:
         env:
           QIITA_TOKEN: ${{ secrets.QIITA_TOKEN }}
       
+      # ファイル名をIDからタイトルベースに変更
+      - name: Rename articles to title-based filenames
+        run: node .github/scripts/rename-articles.js
+      
       # 変更があればコミット
       - name: Commit changes
         run: |
