@@ -53,7 +53,7 @@ def parse_date(date_str):
     try:
         # ISO 8601形式をパース
         return datetime.fromisoformat(date_str.replace('+09:00', ''))
-    except:
+    except (ValueError, AttributeError):
         return datetime.min
 
 def generate_article_list():
@@ -90,7 +90,7 @@ def generate_article_list():
                 dt = parse_date(updated_at)
                 if dt != datetime.min:
                     date_str = f" (更新: {dt.strftime('%Y-%m-%d')})"
-            except:
+            except (ValueError, AttributeError):
                 pass
         
         print(f"- [{title}](./public/{filename}){date_str}")
