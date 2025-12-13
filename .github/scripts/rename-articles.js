@@ -124,11 +124,10 @@ function main() {
     process.exit(1);
   }
   
-  // 処理対象ディレクトリのリスト（public直下と.remote）
+  // 処理対象ディレクトリのリスト（public直下のみ）
   const targetDirs = [
-    publicDir,
-    path.join(publicDir, '.remote')
-  ].filter(dir => fs.existsSync(dir));
+    publicDir
+  ];
   
   console.log(`処理対象ディレクトリ: ${targetDirs.length}個`);
   targetDirs.forEach(dir => console.log(`  - ${path.relative(publicDir, dir) || '.'}`));
