@@ -60,10 +60,10 @@ function extractFrontmatter(content) {
         if (value === '>-' || value === '>' || value === '|-' || value === '|') {
           isMultiline = true;
           multilineValue = [];
-        } else if (value.startsWith("'") && value.endsWith("'")) {
+        } else if (value.length > 1 && value.startsWith("'") && value.endsWith("'")) {
           // 値が引用符で囲まれている場合は除去
           metadata[currentKey] = value.slice(1, -1);
-        } else if (value.startsWith('"') && value.endsWith('"')) {
+        } else if (value.length > 1 && value.startsWith('"') && value.endsWith('"')) {
           metadata[currentKey] = value.slice(1, -1);
         } else {
           metadata[currentKey] = value;
@@ -190,7 +190,7 @@ function main() {
       // 重複チェックと処理
       if (usedFilenames.has(newFilename)) {
         // 既に使用されているファイル名の場合、IDを末尾に追加
-        const shortId = metadata.id.substring(0, 8);
+        const shortId = metadata.id.length >= 8 ? metadata.id.substring(0, 8) : metadata.id;
         newFilename = `${newFilename}-${shortId}`;
         console.log(`重複を検出: ${metadata.title} -> ${newFilename}.md`);
       }
