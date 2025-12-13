@@ -124,110 +124,131 @@ function main() {
     process.exit(1);
   }
   
-  // public/ディレクトリ内の全.mdファイルを取得
-  const files = fs.readdirSync(publicDir)
-    .filter(file => file.endsWith('.md') && !file.startsWith('.'));
+  // 処理対象ディレクトリのリスト（public直下と.remote）
+  const targetDirs = [
+    publicDir,
+    path.join(publicDir, '.remote')
+  ].filter(dir => fs.existsSync(dir));
   
-  console.log(`${files.length}個のマークダウンファイルを見つけました`);
+  console.log(`処理対象ディレクトリ: ${targetDirs.length}個`);
+  targetDirs.forEach(dir => console.log(`  - ${path.relative(publicDir, dir) || '.'}`));
   
-  const renamedFiles = [];
-  const skippedFiles = [];
-  const errors = [];
+  let totalRenamed = 0;
+  let totalSkipped = 0;
+  let totalErrors = 0;
   
-  // 重複チェック用のマップ
-  const usedFilenames = new Map();
-  
-  for (const file of files) {
-    const filePath = path.join(publicDir, file);
-    const content = fs.readFileSync(filePath, 'utf8');
+  for (const targetDir of targetDirs) {
+    console.log(`\n=== ${path.relative(publicDir, targetDir) || 'public'} ディレクトリを処理中 ===`);
     
-    // frontmatterを抽出
-    const metadata = extractFrontmatter(content);
+    // ディレクトリ内の全.mdファイルを取得
+    const files = fs.readdirSync(targetDir)
+      .filter(file => file.endsWith('.md') && !file.startsWith('.'));
     
-    if (!metadata) {
-      console.warn(`警告: ${file} のfrontmatterが見つかりません - スキップ`);
-      skippedFiles.push({ file, reason: 'frontmatterなし' });
-      continue;
+    console.log(`${files.length}個のマークダウンファイルを見つけました`);
+    
+    const renamedFiles = [];
+    const skippedFiles = [];
+    const errors = [];
+    
+    // 重複チェック用のマップ
+    const usedFilenames = new Map();
+    
+    for (const file of files) {
+      const filePath = path.join(targetDir, file);
+      const content = fs.readFileSync(filePath, 'utf8');
+      
+      // frontmatterを抽出
+      const metadata = extractFrontmatter(content);
+      
+      if (!metadata) {
+        console.warn(`警告: ${file} のfrontmatterが見つかりません - スキップ`);
+        skippedFiles.push({ file, reason: 'frontmatterなし' });
+        continue;
+      }
+      
+      if (!metadata.title) {
+        console.warn(`警告: ${file} にタイトルがありません - スキップ`);
+        skippedFiles.push({ file, reason: 'タイトルなし' });
+        continue;
+      }
+      
+      if (!metadata.id) {
+        console.warn(`警告: ${file} にIDがありません - スキップ`);
+        skippedFiles.push({ file, reason: 'IDなし' });
+        continue;
+      }
+      
+      // タイトルベースのファイル名を生成
+      let newFilename = sanitizeFilename(metadata.title);
+      
+      if (!newFilename) {
+        console.warn(`警告: ${file} のタイトルから有効なファイル名を生成できません - スキップ`);
+        skippedFiles.push({ file, reason: 'ファイル名生成失敗' });
+        continue;
+      }
+      
+      // 重複チェックと処理
+      if (usedFilenames.has(newFilename)) {
+        // 既に使用されているファイル名の場合、IDを末尾に追加
+        const shortId = metadata.id.substring(0, 8);
+        newFilename = `${newFilename}-${shortId}`;
+        console.log(`重複を検出: ${metadata.title} -> ${newFilename}.md`);
+      }
+      
+      usedFilenames.set(newFilename, file);
+      newFilename = `${newFilename}.md`;
+      
+      // 既に正しいファイル名の場合はスキップ
+      if (file === newFilename) {
+        console.log(`スキップ (既に正しいファイル名): ${file}`);
+        skippedFiles.push({ file, reason: '既に正しい名前' });
+        continue;
+      }
+      
+      // ファイルをリネーム
+      const newFilePath = path.join(targetDir, newFilename);
+      
+      // 新しいファイル名が既に存在する場合
+      if (fs.existsSync(newFilePath)) {
+        console.warn(`警告: ${newFilename} は既に存在します - ${file} をスキップ`);
+        skippedFiles.push({ file, reason: '新ファイル名が既に存在' });
+        continue;
+      }
+      
+      try {
+        fs.renameSync(filePath, newFilePath);
+        console.log(`✓ ${file} -> ${newFilename}`);
+        renamedFiles.push({ old: file, new: newFilename, title: metadata.title });
+      } catch (error) {
+        console.error(`エラー: ${file} のリネームに失敗: ${error.message}`);
+        errors.push({ file, error: error.message });
+      }
     }
     
-    if (!metadata.title) {
-      console.warn(`警告: ${file} にタイトルがありません - スキップ`);
-      skippedFiles.push({ file, reason: 'タイトルなし' });
-      continue;
-    }
+    // ディレクトリごとのサマリーを表示
+    console.log(`\nリネーム成功: ${renamedFiles.length}件`);
+    console.log(`スキップ: ${skippedFiles.length}件`);
+    console.log(`エラー: ${errors.length}件`);
     
-    if (!metadata.id) {
-      console.warn(`警告: ${file} にIDがありません - スキップ`);
-      skippedFiles.push({ file, reason: 'IDなし' });
-      continue;
-    }
+    totalRenamed += renamedFiles.length;
+    totalSkipped += skippedFiles.length;
+    totalErrors += errors.length;
     
-    // タイトルベースのファイル名を生成
-    let newFilename = sanitizeFilename(metadata.title);
-    
-    if (!newFilename) {
-      console.warn(`警告: ${file} のタイトルから有効なファイル名を生成できません - スキップ`);
-      skippedFiles.push({ file, reason: 'ファイル名生成失敗' });
-      continue;
-    }
-    
-    // 重複チェックと処理
-    if (usedFilenames.has(newFilename)) {
-      // 既に使用されているファイル名の場合、IDを末尾に追加
-      const shortId = metadata.id.substring(0, 8);
-      newFilename = `${newFilename}-${shortId}`;
-      console.log(`重複を検出: ${metadata.title} -> ${newFilename}.md`);
-    }
-    
-    usedFilenames.set(newFilename, file);
-    newFilename = `${newFilename}.md`;
-    
-    // 既に正しいファイル名の場合はスキップ
-    if (file === newFilename) {
-      console.log(`スキップ (既に正しいファイル名): ${file}`);
-      skippedFiles.push({ file, reason: '既に正しい名前' });
-      continue;
-    }
-    
-    // ファイルをリネーム
-    const newFilePath = path.join(publicDir, newFilename);
-    
-    // 新しいファイル名が既に存在する場合
-    if (fs.existsSync(newFilePath)) {
-      console.warn(`警告: ${newFilename} は既に存在します - ${file} をスキップ`);
-      skippedFiles.push({ file, reason: '新ファイル名が既に存在' });
-      continue;
-    }
-    
-    try {
-      fs.renameSync(filePath, newFilePath);
-      console.log(`✓ ${file} -> ${newFilename}`);
-      renamedFiles.push({ old: file, new: newFilename, title: metadata.title });
-    } catch (error) {
-      console.error(`エラー: ${file} のリネームに失敗: ${error.message}`);
-      errors.push({ file, error: error.message });
+    if (errors.length > 0) {
+      console.log('\n=== エラー ===');
+      errors.forEach(({ file, error }) => {
+        console.log(`  ${file}: ${error}`);
+      });
     }
   }
   
-  // サマリーを表示
-  console.log('\n=== 処理結果 ===');
-  console.log(`リネーム成功: ${renamedFiles.length}件`);
-  console.log(`スキップ: ${skippedFiles.length}件`);
-  console.log(`エラー: ${errors.length}件`);
+  // 全体のサマリーを表示
+  console.log('\n=== 全体の処理結果 ===');
+  console.log(`リネーム成功: ${totalRenamed}件`);
+  console.log(`スキップ: ${totalSkipped}件`);
+  console.log(`エラー: ${totalErrors}件`);
   
-  if (renamedFiles.length > 0) {
-    console.log('\n=== リネームされたファイル ===');
-    renamedFiles.forEach(({ old, new: newName, title }) => {
-      console.log(`  ${old} -> ${newName}`);
-      console.log(`    (タイトル: ${title})`);
-    });
-  }
-  
-  if (errors.length > 0) {
-    console.log('\n=== エラー ===');
-    errors.forEach(({ file, error }) => {
-      console.log(`  ${file}: ${error}`);
-    });
+  if (totalErrors > 0) {
     process.exit(1);
   }
 }
