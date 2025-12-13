@@ -5,7 +5,6 @@ public/ディレクトリ内のマークダウンファイルからタイトル�
 README.mdに記載するための記事一覧を生成します。
 """
 
-import os
 import re
 from pathlib import Path
 from datetime import datetime
@@ -86,12 +85,9 @@ def generate_article_list():
         # 日付をフォーマット
         date_str = ""
         if updated_at:
-            try:
-                dt = parse_date(updated_at)
-                if dt != datetime.min:
-                    date_str = f" (更新: {dt.strftime('%Y-%m-%d')})"
-            except (ValueError, AttributeError):
-                pass
+            dt = parse_date(updated_at)
+            if dt != datetime.min:
+                date_str = f" (更新: {dt.strftime('%Y-%m-%d')})"
         
         print(f"- [{title}](./public/{filename}){date_str}")
 
