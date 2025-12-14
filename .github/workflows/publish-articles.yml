@@ -37,3 +37,14 @@ jobs:
         run: npx qiita publish --all
         env:
           QIITA_TOKEN: ${{ secrets.QIITA_TOKEN }}
+
+      # ID
+      - name: Commit and push diff # Not executed recursively even if `push` is triggered. See https://docs.github.com/en/actions/using-workflows/triggering-a-workflow#triggering-a-workflow-from-a-workflow
+        run: |
+          git add ./public/*
+          if ! git diff --staged --exit-code --quiet; then
+            git config --global user.name 'github-actions[bot]'
+            git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m "$Update ids after publishment"
+            git push
+          fi
