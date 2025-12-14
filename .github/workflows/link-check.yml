@@ -46,3 +46,4 @@ jobs:
         with:
           title: リンクチェックで壊れたリンクが検出されました
           content-filepath: ./lychee/out.md
+          labels: bug
