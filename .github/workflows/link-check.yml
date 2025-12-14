@@ -1,9 +1,9 @@
 name: リンクチェック
 
-# 毎月1日の午前9時（JST）に実行（UTC 0時）
+# 1,4,7,10月の1日の午前9時（JST）に実行（UTC 0時）
 on:
   schedule:
-    - cron: '0 0 1 * *'
+    - cron: '0 0 1 1,4,7,10 *'
   # 手動実行も可能
   workflow_dispatch:
 
