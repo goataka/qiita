@@ -1,9 +1,7 @@
 name: 記事の公開
 
-# PRがmainブランチにマージされた時に実行
 on:
-  pull_request:
-    types: [closed]
+  push:
     branches:
       - main
 
