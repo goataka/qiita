@@ -7,8 +7,6 @@ on:
 
 jobs:
   publish-articles:
-    # PRがマージされた場合のみ実行
-    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     permissions:
       contents: write
