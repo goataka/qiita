@@ -1,5 +1,5 @@
 ---
-title: SpeckitとGitHub Copilot Coding Agentによる仕様駆動開発の比較
+title: Spec KitとGitHub Copilot Coding Agentによる仕様駆動開発の比較
 tags:
   - speckit
   - 仕様駆動開発
@@ -22,7 +22,7 @@ ignorePublish: false
 
 ただし、結局盛り込もうとしすぎて実装までたどり着けていません。
 
-本記事では、SpeckitとGitHub Copilot Coding Agentを使って仕様駆動開発をした際の比較を行います。
+本記事では、Spec KitとGitHub Copilot Coding Agentを使って仕様駆動開発をした際の比較を行います。
 
 ※Kiroはベンダー依存が強いので対象外にしています。
 
@@ -34,11 +34,11 @@ ignorePublish: false
 
 ## 対象ツール
 
-### Speckit
+### Spec Kit
 
-Speckitは、仕様駆動開発を支援するVSCode拡張機能です。仕様を書きながらコードを生成・更新できます。
+Spec Kitは、仕様駆動開発を支援するVSCode拡張機能です。仕様を書きながらコードを生成・更新できます。
 
-https://speckit.dev/
+https://github.com/github/spec-kit
 
 ### GitHub Copilot Coding Agent
 
@@ -48,7 +48,7 @@ https://github.com/features/copilot
 
 # 比較表
 
-| 観点 | Speckit | GitHub Copilot Coding Agent |
+| 観点 | Spec Kit | GitHub Copilot Coding Agent |
 |------|---------|------------------------|
 | **使用形態** | ローカル実行（VSCode拡張） | クラウドベース（Web/デスクトップ/モバイル） |
 | **環境構築** | 必要 | 不要（アカウントのみ） |
@@ -103,10 +103,10 @@ https://github.com/features/copilot
 
 ## 導入段階に応じた使い分け
 
-最初はSpeckitで慣れたら自前がよい気がする。
+最初はSpec Kitで慣れたら自前がよい気がする。
 
-**最初はSpeckitで慣れる**
-- 仕様駆動開発に初めて取り組む場合、型があるSpeckitで基本的な流れを学ぶ
+**最初はSpec Kitで慣れる**
+- 仕様駆動開発に初めて取り組む場合、型があるSpec Kitで基本的な流れを学ぶ
 - 仕様の書き方、進め方のパターンを体得する
 
 **慣れたらGitHub Copilot Coding Agentへ移行**
@@ -117,9 +117,9 @@ https://github.com/features/copilot
 
 状況に応じて使い分ける：
 
-- **初期設計・アーキテクチャ決定**：Speckitで構造化して考える
+- **初期設計・アーキテクチャ決定**：Spec Kitで構造化して考える
 - **機能実装・修正**：GitHub Copilot Coding Agentで柔軟に対応
-- **ドキュメント作成**：Speckitの型を活用して統一感のある文書を作成
+- **ドキュメント作成**：Spec Kitの型を活用して統一感のある文書を作成
 - **複数機能の同時開発**：GitHub Copilot Coding Agentで並行作業
 
 ## 仕様管理
@@ -143,9 +143,9 @@ https://github.com/features/copilot
 
 # 推奨
 
-## 初心者・小規模チームにはSpeckit
+## 初心者・小規模チームにはSpec Kit
 
-以下の場合、Speckitから始めることを推奨：
+以下の場合、Spec Kitから始めることを推奨：
 
 - 仕様駆動開発が初めての場合
 - 型があることで安心したい場合
@@ -166,7 +166,7 @@ https://github.com/features/copilot
 
 理想的には、両方のツールの特性を理解した上で使い分けることです：
 
-1. **学習段階**：Speckitで基本を学ぶ
+1. **学習段階**：Spec Kitで基本を学ぶ
 2. **実践段階**：GitHub Copilot Coding Agentで柔軟に開発
 3. **標準化段階**：チームに合わせたハイブリッド運用
 
@@ -174,7 +174,7 @@ https://github.com/features/copilot
 
 # おわりに
 
-SpeckitとGitHub Copilot Coding Agent、それぞれに長所と短所がある。
+Spec KitとGitHub Copilot Coding Agent、それぞれに長所と短所がある。
 
 プロジェクトの状況やチームのスキルレベルに応じて選択・使い分けることが重要です。
 
