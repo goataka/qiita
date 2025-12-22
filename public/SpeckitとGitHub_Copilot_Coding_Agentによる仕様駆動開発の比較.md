@@ -24,7 +24,7 @@ ignorePublish: false
 
 本記事では、Spec KitとGitHub Copilot Coding Agentを使って仕様駆動開発をした際の比較を行います。
 
-※Kiroはベンダー依存が強いので対象外にしています。
+**Kiro**は気になりましたが、時間の都合により対象外にしました。
 
 ## 前提
 
