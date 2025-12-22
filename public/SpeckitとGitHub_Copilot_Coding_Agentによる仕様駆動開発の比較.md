@@ -44,7 +44,7 @@ ignorePublish: false
 
 ### GitHub Copilot Coding Agent
 
-https://github.com/features/copilot
+<https://github.com/features/copilot>
 
 - GitHubが提供するAI駆動型のコード生成・編集支援ツール
 - 自然言語による指示でコードの生成や修正を行う
