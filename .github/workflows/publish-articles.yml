@@ -1,6 +1,7 @@
 name: 記事の公開
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
