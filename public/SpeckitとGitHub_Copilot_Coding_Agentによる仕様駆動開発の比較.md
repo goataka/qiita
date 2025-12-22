@@ -36,7 +36,7 @@ ignorePublish: false
 
 ### Spec Kit
 
-Spec Kitは、仕様駆動開発を支援するVSCode拡張機能です。仕様を書きながらコードを生成・更新できます。
+Spec Kitは、仕様駆動開発を支援するCLIツールです（VSCode拡張機能もあり）。仕様を書きながらコードを生成・更新できます。
 
 https://github.com/github/spec-kit
 
