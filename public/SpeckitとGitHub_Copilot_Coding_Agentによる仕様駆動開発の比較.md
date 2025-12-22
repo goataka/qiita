@@ -32,6 +32,20 @@ ignorePublish: false
 - 実際の使用経験を基にした内容
 - DDD（ドメイン駆動設計）やATDD（受け入れテスト駆動開発）との相性を重視
 
+## 対象ツール
+
+### Speckit
+
+Speckitは、仕様駆動開発を支援するVSCode拡張機能です。仕様を書きながらコードを生成・更新できます。
+
+https://speckit.dev/
+
+### GitHub Copilot Coding Agent
+
+GitHub Copilot Coding Agentは、GitHubが提供するAI駆動型のコード生成・編集支援ツールです。自然言語による指示でコードの生成や修正を行います。
+
+https://github.com/features/copilot
+
 # Speckitの特徴
 
 ## メリット
