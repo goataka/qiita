@@ -6,7 +6,7 @@ tags:
   - AIエージェント
   - GitHubCopilot
   - ATDD
-private: true
+private: false
 updated_at: '2025-12-22T14:32:00+09:00'
 id: null
 organization_url_name: null
