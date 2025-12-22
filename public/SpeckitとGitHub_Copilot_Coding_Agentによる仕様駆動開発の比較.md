@@ -36,7 +36,7 @@ ignorePublish: false
 
 ### GitHub Spec Kit
 
-https://github.com/github/spec-kit
+<https://github.com/github/spec-kit>
 
 - GitHubが提供する仕様駆動開発を支援するCLIツール
 - VSCode拡張機能もあり
