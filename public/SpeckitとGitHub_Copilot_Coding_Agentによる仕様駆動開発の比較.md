@@ -7,7 +7,7 @@ tags:
   - 仕様駆動開発
   - SpecKit
 private: false
-updated_at: '2025-12-23T02:13:54+09:00'
+updated_at: '2025-12-23T08:36:16+09:00'
 id: 66ecf5f472208d6185ce
 organization_url_name: works-hi
 slide: false
