@@ -34,11 +34,11 @@ ignorePublish: false
 
 ## 対象ツール
 
-### Spec Kit
+### GitHub Spec Kit
 
 https://github.com/github/spec-kit
 
-- 仕様駆動開発を支援するCLIツール
+- GitHubが提供する仕様駆動開発を支援するCLIツール
 - VSCode拡張機能もあり
 - 仕様を書きながらコードを生成・更新できる
 
