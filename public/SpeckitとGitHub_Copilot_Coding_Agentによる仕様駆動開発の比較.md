@@ -1,14 +1,14 @@
 ---
 title: Spec KitとGitHub Copilot Coding Agentによる仕様駆動開発の比較
 tags:
-  - speckit
-  - 仕様駆動開発
-  - AIエージェント
-  - GitHubCopilot
   - ATDD
+  - GitHubCopilot
+  - AIエージェント
+  - 仕様駆動開発
+  - SpecKit
 private: false
-updated_at: '2025-12-22T14:32:00+09:00'
-id: null
+updated_at: '2025-12-23T02:13:54+09:00'
+id: 66ecf5f472208d6185ce
 organization_url_name: null
 slide: false
 ignorePublish: false
