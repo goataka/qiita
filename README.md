@@ -8,8 +8,9 @@ Qiita記事をGitHubで管理するためのリポジトリです。
 
 ## 記事一覧
 
-全 20 件の記事があります。
+全 21 件の記事があります。
 
+- [AWS CDKをLocalStackで検証する方法](./public/AWS_CDKをLocalStackで検証する方法.md) (更新: 2026-01-11)
 - [Spec KitとGitHub Copilot Coding Agentによる仕様駆動開発の比較](./public/SpeckitとGitHub_Copilot_Coding_Agentによる仕様駆動開発の比較.md) (更新: 2025-12-22)
 - [雑にエージェントにテスト設計をさせてみて考えたこと](./public/雑にエージェントにテスト設計をさせてみて考えたこと.md) (更新: 2025-12-15)
 - [開発マネージャがメンバーに知って欲しい事 ※随時更新](./public/開発マネージャがメンバーに知って欲しい事.md) (更新: 2025-04-22)
