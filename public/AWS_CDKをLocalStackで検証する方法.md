@@ -2,13 +2,13 @@
 title: AWS CDKをLocalStackで検証する方法
 tags:
   - AWS
-  - CDK
+  - DynamoDB
   - LocalStack
   - GitHubActions
-  - DynamoDB
+  - CDK
 private: false
-updated_at: ''
-id: null
+updated_at: '2026-01-11T21:25:11+09:00'
+id: bddc0771655123ec9aaa
 organization_url_name: works-hi
 slide: false
 ignorePublish: false
