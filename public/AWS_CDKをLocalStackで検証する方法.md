@@ -18,7 +18,7 @@ ignorePublish: false
 AWS CDK（Cloud Development Kit）を使ったインフラ構築を行う際、AWSアカウントに直接デプロイする前にローカル環境で動作確認したいというニーズがあります。LocalStackを使用することで、AWS環境をローカルでエミュレートし、コストをかけずに開発・テストを行うことができます。
 
 本記事では、以下のリポジトリで実装した内容を紹介します。
-https://github.com/goataka/cdk-with-localstack
+<https://github.com/goataka/cdk-with-localstack>
 
 ## 対象読者
 
@@ -197,11 +197,11 @@ environment:
   - SERVICES=dynamodb  # これは動作しません
 ```
 
-**理由**: 
+**理由**:
 
 `cdklocal`コマンドは内部的にSTS（Security Token Service）などの複数のAWSサービスを使用します。サービスを`dynamodb`のみに制限すると、以下のようなエラーが発生します：
 
-```
+```text
 Unable to resolve AWS account to use. It must be either configured when you define your CDK Stack, or through the environment
 ```
 
