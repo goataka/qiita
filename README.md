@@ -8,8 +8,9 @@ Qiita記事をGitHubで管理するためのリポジトリです。
 
 ## 記事一覧
 
-全 21 件の記事があります。
+全 22 件の記事があります。
 
+- [AIエージェントを自走させる「PO型アジャイル開発」のリアルな現在地とプラクティス](./public/AIエージェントを自走させるPO型アジャイル開発のリアルな現在地とプラクティス.md) (更新: 2026-05-16)
 - [AWS CDKをLocalStackで検証する方法](./public/AWS_CDKをLocalStackで検証する方法.md) (更新: 2026-01-11)
 - [Spec KitとGitHub Copilot Coding Agentによる仕様駆動開発の比較](./public/SpeckitとGitHub_Copilot_Coding_Agentによる仕様駆動開発の比較.md) (更新: 2025-12-22)
 - [雑にエージェントにテスト設計をさせてみて考えたこと](./public/雑にエージェントにテスト設計をさせてみて考えたこと.md) (更新: 2025-12-15)
